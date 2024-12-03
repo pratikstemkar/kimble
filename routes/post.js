@@ -27,6 +27,17 @@ router.get("/", (req, res) => {
     });
 });
 
+router.get("/:postId", (req, res) => {
+    const stmt = `
+                    SELECT id, title, content, user_id
+                    FROM posts
+                    WHERE id = ?
+                 `;
+    db.pool.query(stmt, [req.params.postId], (error, result) => {
+        res.send(utils.createResult(error, result));
+    });
+});
+
 router.put("/:postId", (req, res) => {
     const { title, content } = req.body;
 
@@ -45,12 +56,29 @@ router.put("/:postId", (req, res) => {
 });
 
 router.delete("/:postId", (req, res) => {
-    const stmt = `
-                    DELETE from posts
-                    WHERE id = ? AND user_id = ?
-                 `;
-    db.pool.execute(stmt, [req.params.postId, req.user.id], (error, result) => {
-        res.send(utils.createResult(error, result));
+    const stmt1 = `
+                    SELECT id, title, content, user_id
+                    FROM posts
+                    WHERE id = ?
+                  `;
+    db.pool.execute(stmt1, [req.params.postId], (error, result) => {
+        if (result.length == 0) {
+            res.send(utils.createError("Post does not exist!"));
+        } else {
+            if (result.user_id === req.user.id || req.user.role === "admin") {
+                const stmt = `
+                DELETE from posts
+                WHERE id = ?
+             `;
+                db.pool.execute(stmt, [req.params.postId], (error, result) => {
+                    res.send(utils.createResult(error, result));
+                });
+            } else {
+                res.send(
+                    utils.createError("User not authorized to delete the post.")
+                );
+            }
+        }
     });
 });
 

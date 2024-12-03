@@ -43,8 +43,8 @@ router.post("/login", (req, res) => {
             if (users.length == 0) {
                 res.send(utils.createError("User does not exist."));
             } else {
-                const { id, firstName, lastName } = users[0];
-                const payload = { id, firstName, lastName };
+                const { id, firstName, lastName, role } = users[0];
+                const payload = { id, firstName, lastName, role };
                 const token = jwt.sign(payload, process.env.JWT_SECRET);
                 res.send(utils.createSuccess({ token, firstName, lastName }));
             }
