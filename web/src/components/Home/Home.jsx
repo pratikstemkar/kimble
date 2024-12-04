@@ -19,7 +19,7 @@ const Home = () => {
                 </h4>
                 <Link
                     to="/stories"
-                    className="px-5 py-2 bg-violet-500 text-white rounded-full hover:shadow-lg hover:scale-110 transition ease-in-out duration-300"
+                    className="px-5 py-2 bg-red-500 text-white rounded-full hover:shadow-lg hover:scale-110 transition ease-in-out duration-300"
                 >
                     Start Reading
                 </Link>
