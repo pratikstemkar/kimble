@@ -9,6 +9,8 @@ CREATE TABLE users (
     lastName varchar(50),
     password varchar(100),
     role varchar(50),
+    otp varchar(6),
+    isEmailVerified int(1) default 0,
     createdAt TIMESTAMP default CURRENT_TIMESTAMP
 );
 
