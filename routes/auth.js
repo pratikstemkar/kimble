@@ -33,7 +33,7 @@ router.post("/register", (req, res) => {
                     <br />
                     <div>Your OTP is
                         <br/>
-                        <h3>${otp}</h3>
+                        <h2>${otp}</h2>
                     </div>
                     <br />
                     <div>Thank You,</div>
@@ -54,7 +54,7 @@ router.post("/login", (req, res) => {
     const { email, password } = req.body;
 
     const stmt = `
-                    SELECT id, firstName, lastName, role, isEmailVerified
+                    SELECT id, firstName, lastName, pfp, role, isEmailVerified, isActive
                     FROM users
                     WHERE email = ? AND password = ?
                  `;
@@ -68,23 +68,35 @@ router.post("/login", (req, res) => {
             if (users.length == 0) {
                 res.send(utils.createError("User does not exist."));
             } else {
-                const { id, firstName, lastName, role, isEmailVerified } =
-                    users[0];
+                const {
+                    id,
+                    firstName,
+                    lastName,
+                    pfp,
+                    role,
+                    isEmailVerified,
+                    isActive,
+                } = users[0];
                 const payload = {
                     id,
                     firstName,
                     lastName,
+                    pfp,
                     role,
                     isEmailVerified,
+                    isActive,
                 };
                 const token = jwt.sign(payload, process.env.JWT_SECRET);
                 res.send(
                     utils.createSuccess({
                         token,
+                        id,
                         firstName,
                         lastName,
+                        pfp,
                         role,
                         isEmailVerified,
+                        isActive,
                     })
                 );
             }
