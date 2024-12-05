@@ -4,14 +4,24 @@ const Footer = () => {
             <div>
                 <span>Kimble &copy; {new Date().getFullYear()}</span>
             </div>
-            <div>
-                Developed by{" "}
+            <div className="flex space-x-2 items-center">
+                <div>
+                    Developed by{" "}
+                    <a
+                        href="https://x.com/pratikstemkar"
+                        target="_blank"
+                        className="underline underline-offset-4 hover:text-black"
+                    >
+                        Pratik Temkar
+                    </a>
+                </div>
+                <span>&#x2022;</span>
                 <a
-                    href="https://x.com/pratikstemkar"
+                    href="https://github.com/pratikstemkar/kimble"
                     target="_blank"
                     className="underline underline-offset-4 hover:text-black"
                 >
-                    Pratik Temkar
+                    GitHub
                 </a>
             </div>
         </footer>

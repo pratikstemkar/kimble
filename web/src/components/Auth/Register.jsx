@@ -3,9 +3,13 @@ import { useForm } from "react-hook-form";
 import { BASE_URL } from "../../../constants";
 import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
+    const navigate = useNavigate();
 
     const {
         register,
@@ -22,8 +26,17 @@ const Register = () => {
                 console.log(res);
                 if (res.data.status === "success") {
                     console.log(res.data);
+                    setError("");
+                    toast.success("User registered successfully!", {
+                        position: "bottom-right",
+                    });
+                    navigate("/login");
                 } else {
                     console.log(res.data.error.sqlMessage);
+                    setError(res.data.error.sqlMessage);
+                    toast.error(res.data.error.sqlMessage, {
+                        position: "bottom-right",
+                    });
                 }
             })
             .catch(err => {
@@ -104,14 +117,20 @@ const Register = () => {
                     <div className="flex justify-center">
                         <button
                             type="submit"
-                            className="flex space-x-2 items-center px-5 py-2 rounded-full bg-violet-500 text-white hover:cursor-pointer hover:shadow-lg"
+                            className={`flex space-x-2 items-center px-5 py-2 rounded-full bg-red-500 text-white hover:cursor-pointer hover:shadow-lg ${
+                                loading && "bg-gray-500"
+                            }`}
+                            disabled={loading}
                         >
                             {loading && (
-                                <Loader2Icon className="animate-spin h-5 w-5" />
+                                <Loader2Icon className="h-4 w-4 animate-spin" />
                             )}
                             <span>Register</span>
                         </button>
                     </div>
+                    {error !== "" && (
+                        <span className="text-red-500 text-sm">{error}</span>
+                    )}
                 </form>
             </div>
         </div>

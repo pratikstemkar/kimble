@@ -4,10 +4,15 @@ import { BASE_URL } from "../../../constants";
 import { useNavigate } from "react-router";
 import { login } from "../../../store/features/userSlice";
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import { Loader2Icon } from "lucide-react";
 
 const Login = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState("");
 
     const {
         register,
@@ -21,15 +26,25 @@ const Login = () => {
     });
 
     const onSubmit = data => {
+        setLoading(true);
         axios
             .post(`${BASE_URL}/auth/login`, data)
             .then(res => {
                 console.log(res);
                 if (res.data.status === "success") {
+                    setLoading(false);
                     navigate("/stories");
                     dispatch(login(res.data.data));
+                    toast.success("Log In successful!", {
+                        position: "bottom-right",
+                    });
                 } else {
+                    setLoading(false);
                     console.log(res.data.error);
+                    setError(res.data.error);
+                    toast.error("Log In Failed!", {
+                        position: "bottom-right",
+                    });
                 }
             })
             .catch(err => {
@@ -88,12 +103,22 @@ const Login = () => {
                     )}
 
                     <div className="flex justify-center">
-                        <input
+                        <button
                             type="submit"
-                            className="px-5 py-2 rounded-full bg-violet-500 text-white hover:cursor-pointer hover:shadow-lg"
-                            value="Login"
-                        />
+                            className={`flex space-x-2 items-center px-5 py-2 rounded-full bg-red-500 text-white hover:cursor-pointer hover:shadow-lg ${
+                                loading && "bg-gray-500"
+                            }`}
+                            disabled={loading}
+                        >
+                            {loading && (
+                                <Loader2Icon className="h-4 w-4 animate-spin" />
+                            )}
+                            <span>Login</span>
+                        </button>
                     </div>
+                    {error !== "" && (
+                        <span className="text-red-500 text-sm">{error}</span>
+                    )}
                 </form>
             </div>
         </div>
