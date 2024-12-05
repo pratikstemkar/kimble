@@ -13,7 +13,7 @@ CREATE TABLE users (
     otp varchar(6),
     isEmailVerified int(1) DEFAULT 0,
     isDeleted int(1) DEFAULT 0,
-    isActive int(1) DEFAULT 0,
+    isActive int(1) DEFAULT 1,
     createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

@@ -54,7 +54,7 @@ router.post("/login", (req, res) => {
     const { email, password } = req.body;
 
     const stmt = `
-                    SELECT id, firstName, lastName, pfp, role, isEmailVerified, isActive
+                    SELECT id, firstName, lastName, pfp, email, role, isEmailVerified, isActive
                     FROM users
                     WHERE email = ? AND password = ?
                  `;
@@ -73,6 +73,7 @@ router.post("/login", (req, res) => {
                     firstName,
                     lastName,
                     pfp,
+                    email,
                     role,
                     isEmailVerified,
                     isActive,
@@ -82,6 +83,7 @@ router.post("/login", (req, res) => {
                     firstName,
                     lastName,
                     pfp,
+                    email,
                     role,
                     isEmailVerified,
                     isActive,
@@ -94,6 +96,7 @@ router.post("/login", (req, res) => {
                         firstName,
                         lastName,
                         pfp,
+                        email,
                         role,
                         isEmailVerified,
                         isActive,

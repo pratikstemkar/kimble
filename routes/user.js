@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
 
 router.get("/:userId", (req, res) => {
     const stmt = `
-                    SELECT id, firstName, lastName, email, role, createdAt
+                    SELECT id, firstName, lastName, email, role, isEmailVerified, isActive, createdAt
                     FROM users
                     WHERE id = ?
                  `;
