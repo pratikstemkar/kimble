@@ -7,6 +7,8 @@ import Profile from "./components/User/Profile";
 import Write from "./components/Story/Write";
 import ProtectedRoute from "./components/ProtectedRoute";
 import About from "./components/Home/About";
+import EditStory from "./components/Story/EditStory";
+import SearchStory from "./components/Stories/SearchStory";
 
 function App() {
     return (
@@ -39,6 +41,14 @@ function App() {
                 <Route
                     path="write"
                     element={<Write />}
+                />
+                <Route
+                    path="stories/:postId/edit"
+                    element={<EditStory />}
+                />
+                <Route
+                    path="stories/search/:searchQuery"
+                    element={<SearchStory />}
                 />
             </Route>
         </Routes>

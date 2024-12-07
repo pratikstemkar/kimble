@@ -1,13 +1,15 @@
-import { LogOutIcon, PencilIcon } from "lucide-react";
+import { LogOutIcon, PencilIcon, SearchIcon } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate, Link } from "react-router";
 import { toast } from "react-toastify";
 import { logout } from "../../store/features/userSlice";
+import { useState } from "react";
 
 const NavBar = () => {
     const { user } = useSelector(state => state.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const [searchQuery, setSearchQuery] = useState("");
 
     const onLogout = () => {
         dispatch(logout());
@@ -15,6 +17,15 @@ const NavBar = () => {
             position: "bottom-right",
         });
         navigate("/");
+    };
+
+    const onSearch = e => {
+        if (e.key === "Enter") {
+            if (searchQuery !== "") {
+                navigate(`/stories/search/${searchQuery}`);
+                setSearchQuery("");
+            }
+        }
     };
 
     return (
@@ -61,7 +72,20 @@ const NavBar = () => {
                     {/* {JSON.stringify(user)} */}
                 </div>
             </div>
-            <div className="flex space-x-2">
+            <div className="flex flex-grow space-x-2">
+                <div className="bg-gray-300 rounded-full w-1/3 m-auto px-4 py-2 flex items-center">
+                    <SearchIcon className="h-4 w-4 mr-2 text-gray-500" />
+                    <input
+                        type="text"
+                        placeholder="Search story"
+                        className="bg-gray-300 outline-none w-full"
+                        onChange={e => setSearchQuery(e.target.value)}
+                        value={searchQuery}
+                        onKeyDown={onSearch}
+                    />
+                </div>
+            </div>
+            <div className="flex space-x-2 items-center">
                 {user ? (
                     <>
                         <Link

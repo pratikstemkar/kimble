@@ -3,7 +3,7 @@ import { formatDateIST, timeAgoIST } from "../../../utils/utils";
 import axios from "axios";
 import { BASE_URL } from "../../../constants";
 import { Link } from "react-router";
-import { Trash2Icon } from "lucide-react";
+import { PencilIcon, Trash2Icon } from "lucide-react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
@@ -111,15 +111,26 @@ const StoryCard = ({ post, setNeedLoad }) => {
                             </span>
                         )}
                     </div>
-                    {(user.id == userData.id || user.role === "admin") && (
-                        <button
-                            className="hover:bg-gray-200 p-2 rounded-lg"
-                            title="Delete Story"
-                            onClick={deletePost}
-                        >
-                            <Trash2Icon className="h-4 w-4 text-red-500" />
-                        </button>
-                    )}
+                    <div className="flex items-center">
+                        {user.id == userData.id && (
+                            <Link
+                                to={`/stories/${post.id}/edit`}
+                                className="hover:bg-gray-200 p-2 rounded-lg"
+                                title="Edit Story"
+                            >
+                                <PencilIcon className="h-4 w-4" />
+                            </Link>
+                        )}
+                        {(user.id == userData.id || user.role === "admin") && (
+                            <button
+                                className="hover:bg-gray-200 p-2 rounded-lg"
+                                title="Delete Story"
+                                onClick={deletePost}
+                            >
+                                <Trash2Icon className="h-4 w-4 text-red-500" />
+                            </button>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
