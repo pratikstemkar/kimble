@@ -21,8 +21,10 @@ const NavBar = () => {
 
     const onSearch = e => {
         if (e.key === "Enter") {
-            if (searchQuery !== "") {
+            if (searchQuery.trim() !== "") {
                 navigate(`/stories/search/${searchQuery}`);
+                setSearchQuery("");
+            } else {
                 setSearchQuery("");
             }
         }

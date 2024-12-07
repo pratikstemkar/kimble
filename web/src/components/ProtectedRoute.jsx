@@ -5,7 +5,7 @@ import VerifyEmail from "./VerifyEmail";
 const ProtectedRoute = () => {
     const { user } = useSelector(state => state.user);
 
-    if (user.role !== "admin" && !user.isEmailVerified) {
+    if (user !== null && user.role !== "admin" && !user.isEmailVerified) {
         return <VerifyEmail />;
     }
 
