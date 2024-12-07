@@ -67,6 +67,8 @@ router.post("/login", (req, res) => {
         } else {
             if (users.length == 0) {
                 res.send(utils.createError("User does not exist."));
+            } else if (users[0].isActive == 0) {
+                res.send(utils.createError("User account is deactivated!"));
             } else {
                 const {
                     id,

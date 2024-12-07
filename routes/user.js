@@ -54,6 +54,32 @@ router.patch("/:userId", (req, res) => {
     res.send("password change");
 });
 
+router.patch("/:userId/toggle-active", (req, res) => {
+    const { userId } = req.params;
+
+    const stmt = `
+                    UPDATE users
+                    SET isActive = isActive ^ 1
+                    WHERE id = ?
+                 `;
+    db.pool.execute(stmt, [userId], (error, result) => {
+        res.send(utils.createResult(error, result));
+    });
+});
+
+router.patch("/:userId/delete", (req, res) => {
+    const { userId } = req.params;
+
+    const stmt = `
+                    UPDATE users
+                    SET isDeleted = 1
+                    WHERE id = ?
+                 `;
+    db.pool.execute(stmt, [userId], (error, result) => {
+        res.send(utils.createResult(error, result));
+    });
+});
+
 router.delete("/:userId", (req, res) => {
     const stmt = `
                     DELETE from users
