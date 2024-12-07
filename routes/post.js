@@ -18,7 +18,7 @@ router.post("/", (req, res) => {
 
 router.get("/", (req, res) => {
     const stmt = `
-                    SELECT id, title, content, user_id, createdAt
+                    SELECT id, title, content, img, user_id, createdAt
                     FROM posts
                     WHERE isDeleted = 0
                     ORDER BY createdAt DESC
@@ -31,7 +31,7 @@ router.get("/", (req, res) => {
 
 router.get("/:postId", (req, res) => {
     const stmt = `
-                    SELECT id, title, content, user_id, createdAt
+                    SELECT id, title, content, img, user_id, createdAt
                     FROM posts
                     WHERE id = ?
                     AND isDeleted = 0
@@ -41,9 +41,22 @@ router.get("/:postId", (req, res) => {
     });
 });
 
+router.get("/search/:query", (req, res) => {
+    console.log(req.params.query);
+    const stmt = `
+                    SELECT id, title, content, img, user_id, createdAt
+                    FROM posts
+                    WHERE title LIKE ?
+                    AND isDeleted = 0
+                 `;
+    db.pool.query(stmt, ["%" + req.params.query + "%"], (error, result) => {
+        res.send(utils.createResult(error, result));
+    });
+});
+
 router.get("/user/:userId", (req, res) => {
     const stmt = `
-                    SELECT id, title, content, user_id, createdAt
+                    SELECT id, title, content, img, user_id, createdAt
                     FROM posts
                     WHERE user_id = ?
                     AND isDeleted = 0
