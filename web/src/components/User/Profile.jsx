@@ -2,13 +2,18 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { BASE_URL } from "../../../constants";
-import { Loader2Icon } from "lucide-react";
+import { Edit2Icon, Loader2Icon } from "lucide-react";
+import { useSelector } from "react-redux";
+import EditProfile from "./EditProfile";
+import UserStories from "./UserStories";
 
 const Profile = () => {
     const { userId } = useParams();
     const [data, setData] = useState({});
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
+    const [doEdit, setDoEdit] = useState(false);
+    const { user } = useSelector(state => state.user);
 
     useEffect(() => {
         setLoading(true);
@@ -52,6 +57,17 @@ const Profile = () => {
                             </span>
                             {/* <span className="w-1/2">{JSON.stringify(data)}</span> */}
                             <span className="text-gray-500">{data.email}</span>
+                            {user.id == userId && !doEdit && (
+                                <button
+                                    onClick={() => setDoEdit(true)}
+                                    className="px-4 py-2 bg-red-500 flex items-center rounded-full text-white"
+                                >
+                                    <Edit2Icon className="h-4 w-4 mr-2" />
+                                    <span>Edit Profile</span>
+                                </button>
+                            )}
+                            {doEdit && <EditProfile user={data} />}
+                            <UserStories userId={data.id} />
                         </div>
                     </div>
                 )}

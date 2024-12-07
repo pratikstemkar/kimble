@@ -1,17 +1,17 @@
 import axios from "axios";
+import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { BASE_URL } from "../../../constants";
-import { useSelector } from "react-redux";
+import { BASE_URL } from "../../constants";
+import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router";
-import { Loader2Icon } from "lucide-react";
+import { setEmailVerified } from "../../store/features/userSlice";
 
-const Write = () => {
+const VerifyEmail = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
     const { user } = useSelector(state => state.user);
-    const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const {
         register,
@@ -19,8 +19,7 @@ const Write = () => {
         formState: { errors },
     } = useForm({
         defaultValues: {
-            title: "",
-            content: "",
+            otp: "",
         },
     });
 
@@ -28,25 +27,25 @@ const Write = () => {
         setLoading(true);
         const body = {
             ...data,
-            user_id: user.id,
+            email: user.email,
         };
         const token = localStorage.getItem("token");
         axios
-            .post(`${BASE_URL}/posts`, body, {
+            .patch(`${BASE_URL}/auth/verify`, body, {
                 headers: { token },
             })
             .then(res => {
-                console.log(res);
                 setLoading(false);
-                if (res.data.status == "success") {
-                    navigate("/stories");
-                    toast.success("Story posted successfully!", {
+                if (res.data.status === "success") {
+                    console.log(res.data.data);
+                    dispatch(setEmailVerified());
+                    toast.success("Email Verified!", {
                         position: "bottom-right",
                     });
                 } else {
                     console.log(res.data.error);
                     setError(res.data.error);
-                    toast.error("Failed to post the story!", {
+                    toast.error(res.data.error, {
                         position: "bottom-right",
                     });
                 }
@@ -56,43 +55,27 @@ const Write = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
-            <div className="flex flex-col items-center space-y-5">
-                <h1 className="text-2xl font-bold">Write a new story</h1>
+            <div className="flex flex-col space-y-5 items-center">
+                <h1 className="text-2xl font-bold">Verify Email</h1>
                 <form
                     onSubmit={handleSubmit(onSubmit)}
                     className="flex flex-col space-y-2 border p-5 rounded-xl w-1/3"
                 >
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="title">Title</label>
+                    <div className="flex space-x-2 items-center">
+                        <label htmlFor="otp">OTP</label>
                         <input
-                            placeholder="Enter Title"
-                            {...register("title", {
+                            placeholder="Enter OTP"
+                            {...register("otp", {
                                 required: true,
                             })}
                             className="w-full border rounded-lg px-2 py-1"
-                            type="text"
-                            id="title"
+                            type="number"
+                            id="otp"
                         />
                     </div>
-                    {errors.title?.type == "required" && (
+                    {errors.otp?.type == "required" && (
                         <span className="text-red-500 text-sm">
-                            Title is required
-                        </span>
-                    )}
-                    <div className="flex flex-col space-y-2">
-                        <label htmlFor="content">Content</label>
-                        <textarea
-                            {...register("content", { required: true })}
-                            className="w-full border rounded-lg px-2 py-1"
-                            placeholder="Enter content"
-                            type="text"
-                            id="content"
-                            rows="5"
-                        />
-                    </div>
-                    {errors.content && (
-                        <span className="text-red-500 text-sm">
-                            Content is required
+                            OTP is required
                         </span>
                     )}
 
@@ -107,7 +90,7 @@ const Write = () => {
                             {loading && (
                                 <Loader2Icon className="h-4 w-4 animate-spin" />
                             )}
-                            <span>Post Story</span>
+                            <span>Verify OTP</span>
                         </button>
                     </div>
                     {error !== "" && (
@@ -119,4 +102,4 @@ const Write = () => {
     );
 };
 
-export default Write;
+export default VerifyEmail;

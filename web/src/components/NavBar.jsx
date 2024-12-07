@@ -1,10 +1,21 @@
-import { PencilIcon } from "lucide-react";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router";
-import { Link } from "react-router-dom";
+import { LogOutIcon, PencilIcon } from "lucide-react";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink, useNavigate, Link } from "react-router";
+import { toast } from "react-toastify";
+import { logout } from "../../store/features/userSlice";
 
 const NavBar = () => {
     const { user } = useSelector(state => state.user);
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    const onLogout = () => {
+        dispatch(logout());
+        toast.success("Logged out successfully!", {
+            position: "bottom-right",
+        });
+        navigate("/");
+    };
 
     return (
         <nav className="px-20 py-4 flex justify-between items-center shadow-md">
@@ -38,17 +49,7 @@ const NavBar = () => {
                         Stories
                     </NavLink>
                     <NavLink
-                        to="featured"
-                        className={({ isActive }) =>
-                            isActive
-                                ? "text-red-500 hover:text-red-500"
-                                : "text-black hover:text-red-500"
-                        }
-                    >
-                        Featured
-                    </NavLink>
-                    <NavLink
-                        to="about"
+                        to="/about"
                         className={({ isActive }) =>
                             isActive
                                 ? "text-red-500 hover:text-red-500"
@@ -56,7 +57,8 @@ const NavBar = () => {
                         }
                     >
                         About
-                    </NavLink>
+                    </NavLink>{" "}
+                    {/* {JSON.stringify(user)} */}
                 </div>
             </div>
             <div className="flex space-x-2">
@@ -74,10 +76,17 @@ const NavBar = () => {
                             className="hover:cursor-pointer ring-red-500 rounded-full text-white hover:shadow-md"
                         >
                             <img
-                                src="https://github.com/pratikstemkar.png"
+                                src={user.pfp}
                                 className="rounded-full h-10 w-10"
                             />
                         </Link>
+                        <button
+                            className="px-4 py-2 border border-red-500 rounded-full flex items-center hover:shadow-md"
+                            onClick={onLogout}
+                        >
+                            <LogOutIcon className="h-4 w-4 mr-2" />
+                            <span>Logout</span>
+                        </button>
                     </>
                 ) : (
                     <>

@@ -5,21 +5,28 @@ import NavBar from "./components/NavBar.jsx";
 import Footer from "./components/Footer.jsx";
 import { BrowserRouter } from "react-router";
 import { Provider } from "react-redux";
-import store from "../store/store.js";
+import { store, persistor } from "../store/store.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { PersistGate } from "redux-persist/integration/react";
+import { Loader2Icon } from "lucide-react";
 
 createRoot(document.getElementById("root")).render(
     <Provider store={store}>
-        <BrowserRouter>
-            <div className="flex flex-col justify-between h-screen">
-                <div>
-                    <NavBar />
-                    <App />
+        <PersistGate
+            loading={<Loader2Icon className="animate-spin" />}
+            persistor={persistor}
+        >
+            <BrowserRouter>
+                <div className="flex flex-col justify-between h-screen">
+                    <div>
+                        <NavBar />
+                        <App />
+                    </div>
+                    <ToastContainer />
+                    <Footer />
                 </div>
-                <ToastContainer />
-                <Footer />
-            </div>
-        </BrowserRouter>
+            </BrowserRouter>
+        </PersistGate>
     </Provider>
 );

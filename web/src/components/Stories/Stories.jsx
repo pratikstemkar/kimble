@@ -1,13 +1,39 @@
+import { useEffect, useState } from "react";
 import StoryCard from "./StoryCard";
+import axios from "axios";
+import { BASE_URL } from "../../../constants";
 
 const Stories = () => {
+    const [posts, setPosts] = useState([]);
+    const [needLoad, setNeedLoad] = useState(false);
+
+    const token = localStorage.getItem("token");
+    const loadPosts = () => {
+        axios
+            .get(`${BASE_URL}/posts`, {
+                headers: { token },
+            })
+            .then(res => {
+                console.log(res.data.data);
+                setPosts(res.data.data);
+            })
+            .catch(err => console.log(err));
+    };
+
+    useEffect(() => loadPosts(), [needLoad]);
+
     return (
         <div className="max-w-7xl m-auto mt-10">
             <h1 className="text-2xl font-bold">Top Stories</h1>
-            <div className="mt-2 grid grid-cols-3 gap-5">
-                <StoryCard />
-                <StoryCard />
-                <StoryCard />
+            {/* {JSON.stringify(posts)} */}
+            <div className="mt-2 columns-3">
+                {posts.map((post, index) => (
+                    <StoryCard
+                        post={post}
+                        key={index}
+                        setNeedLoad={setNeedLoad}
+                    />
+                ))}
             </div>
         </div>
     );

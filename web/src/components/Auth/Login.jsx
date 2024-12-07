@@ -35,7 +35,6 @@ const Login = () => {
                     setLoading(false);
                     navigate("/stories");
                     dispatch(login(res.data.data));
-                    localStorage.setItem("token", res.data.data.token);
                     toast.success("Log In successful!", {
                         position: "bottom-right",
                     });
