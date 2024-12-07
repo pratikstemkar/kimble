@@ -117,8 +117,8 @@ const Register = () => {
                     <div className="flex justify-center">
                         <button
                             type="submit"
-                            className={`flex space-x-2 items-center px-5 py-2 rounded-full bg-red-500 text-white hover:cursor-pointer hover:shadow-lg ${
-                                loading && "bg-gray-500"
+                            className={`flex space-x-2 items-center px-5 py-2 rounded-full bg-red-500 text-white hover:cursor-pointer hover:shadow-lg${
+                                loading ? "bg-gray-500" : "bg-red-500"
                             }`}
                             disabled={loading}
                         >

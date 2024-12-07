@@ -13,7 +13,10 @@ const NavBar = () => {
                     to="/"
                     className="text-4xl font-extrabold tracking-tighter"
                 >
-                    <div className="flex space-x-2 items-center group">
+                    <div
+                        className="flex space-x-2 items-center group"
+                        title="Real stories by Real people"
+                    >
                         <img
                             src="/logo.png"
                             className="h-10 w-10 group-hover:scale-110 transition duration-300 ease-in-out group-hover:shadow-lg rounded-full"
