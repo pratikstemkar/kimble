@@ -10,11 +10,10 @@ cd kimble
 npm i
 cd web
 npm i
-nodemon server.js
 cd ..
 npm run dev
 ```
 
-Visit at [http://localhost:3000](http://localhost:3000)
+Visit at [http://localhost:5173](http://localhost:5173)
 
 Developed with :heart: by [Pratik Temkar](https://x.com/pratikstemkar)
