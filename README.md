@@ -7,6 +7,22 @@ Read real stories by real people
 ```bash
 git clone https://github.com/pratikstemkar/kimble
 cd kimble
+```
+
+```bash
+sudo docker compose up -d
+sudo docker exec -it kbdb_container bash
+mysql -u root -proot
+```
+
+Paste the contents of `init.sql` in mysql bash.
+
+```bash
+exit
+exit
+```
+
+```bash
 npm i
 cd web
 npm i

@@ -1,4 +1,4 @@
-CREATE DATABASE kimbledb;
+-- CREATE DATABASE kimbledb;
 
 USE kimbledb;
 
