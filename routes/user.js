@@ -34,16 +34,16 @@ router.post("/", (req, res) => {
 });
 
 router.put("/:userId", (req, res) => {
-    const { firstName, lastName, email } = req.body;
+    const { firstName, lastName, pfp } = req.body;
 
     const stmt = `
                     UPDATE users
-                    SET firstName = ?, lastName = ?, email = ?
+                    SET firstName = ?, lastName = ?, pfp = ?
                     WHERE id = ?
                  `;
     db.pool.execute(
         stmt,
-        [firstName, lastName, email, req.user.id],
+        [firstName, lastName, pfp, req.user.id],
         (error, result) => {
             res.send(utils.createResult(error, result));
         }
