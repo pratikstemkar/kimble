@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import StoryCard from "./StoryCard";
 import axios from "axios";
 import { BASE_URL } from "../../../constants";
+import { Helmet } from "react-helmet-async";
 
 const Stories = () => {
     const [posts, setPosts] = useState([]);
@@ -24,6 +25,9 @@ const Stories = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>Stories - Kimble</title>
+            </Helmet>
             <h1 className="text-2xl font-bold">Top Stories</h1>
             {/* {JSON.stringify(posts)} */}
             <div className="mt-2 columns-3">

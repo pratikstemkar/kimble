@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import EditProfile from "./EditProfile";
 import UserStories from "./UserStories";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Profile = () => {
     const { userId } = useParams();
@@ -72,6 +73,14 @@ const Profile = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>
+                    {!loading
+                        ? data.firstName + " " + data.lastName
+                        : "Profile"}{" "}
+                    - Kimble
+                </title>
+            </Helmet>
             <div className="flex flex-col space-y-10">
                 {loading && (
                     <Loader2Icon className="animate-spin h-10 text-center w-full" />

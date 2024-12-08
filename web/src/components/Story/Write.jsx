@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { Loader2Icon } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const Write = () => {
     const [loading, setLoading] = useState(false);
@@ -56,6 +57,9 @@ const Write = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>Write Story - Kimble</title>
+            </Helmet>
             <div className="flex flex-col items-center space-y-5">
                 <h1 className="text-2xl font-bold">Write a new story</h1>
                 <form

@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import { BASE_URL } from "../../../constants";
 import { toast } from "react-toastify";
 import { Edit2Icon, Loader2Icon } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const EditStory = () => {
     const { postId } = useParams();
@@ -90,6 +91,9 @@ const EditStory = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>Edit Story - Kimble</title>
+            </Helmet>
             <div className="flex flex-col space-y-5 items-center">
                 <h1 className="text-2xl font-bold">Edit Story</h1>
                 {/* <div>{JSON.stringify(postData)}</div> */}

@@ -1,8 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Link } from "react-router";
 
 const Home = () => {
     return (
         <div className="max-w-7xl m-auto">
+            <Helmet>
+                <title>Kimble - Read real stories by real people</title>
+            </Helmet>
             <div className="flex flex-col items-center space-y-5 mt-32">
                 <h1 className="text-6xl font-extrabold tracking-tighter">
                     Read real stories by real people{" "}

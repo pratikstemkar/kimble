@@ -5,6 +5,7 @@ import { Loader2Icon } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet-async";
 
 const Register = () => {
     const [loading, setLoading] = useState(false);
@@ -55,6 +56,9 @@ const Register = () => {
 
     return (
         <div className="max-w-7xl m-auto">
+            <Helmet>
+                <title>Register - Kimble</title>
+            </Helmet>
             <div className="flex flex-col justify-center items-center space-y-5 mt-20">
                 <h1 className="text-4xl font-bold">Register</h1>
                 <form

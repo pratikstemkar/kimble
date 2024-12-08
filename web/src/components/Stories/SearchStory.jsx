@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { BASE_URL } from "../../../constants";
 import StoryCard from "./StoryCard";
+import { Helmet } from "react-helmet-async";
 
 const SearchStory = () => {
     const { searchQuery } = useParams();
@@ -29,6 +30,9 @@ const SearchStory = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>Search &apos;{searchQuery}&apos; - Kimble</title>
+            </Helmet>
             <div className="flex flex-col space-y-5">
                 <h1 className="text-2xl font-bold">
                     Search for &apos;{searchQuery}&apos;

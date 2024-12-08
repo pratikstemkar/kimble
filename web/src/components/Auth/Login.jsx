@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import { Loader2Icon } from "lucide-react";
+import { Helmet } from "react-helmet-async";
 
 const Login = () => {
     const navigate = useNavigate();
@@ -54,6 +55,9 @@ const Login = () => {
 
     return (
         <div className="max-w-7xl m-auto">
+            <Helmet>
+                <title>Login - Kimble</title>
+            </Helmet>
             <div className="flex flex-col justify-center items-center space-y-5 mt-20">
                 <h1 className="text-4xl font-bold">Login</h1>
                 <form

@@ -6,6 +6,7 @@ import { BASE_URL } from "../../constants";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { setEmailVerified } from "../../store/features/userSlice";
+import { Helmet } from "react-helmet-async";
 
 const VerifyEmail = () => {
     const [loading, setLoading] = useState(false);
@@ -55,6 +56,9 @@ const VerifyEmail = () => {
 
     return (
         <div className="max-w-7xl m-auto mt-10">
+            <Helmet>
+                <title>Verify Email - Kimble</title>
+            </Helmet>
             <div className="flex flex-col space-y-5 items-center">
                 <h1 className="text-2xl font-bold">Verify Email</h1>
                 <form

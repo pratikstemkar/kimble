@@ -10,23 +10,26 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { PersistGate } from "redux-persist/integration/react";
 import { Loader2Icon } from "lucide-react";
+import { HelmetProvider } from "react-helmet-async";
 
 createRoot(document.getElementById("root")).render(
-    <Provider store={store}>
-        <PersistGate
-            loading={<Loader2Icon className="animate-spin" />}
-            persistor={persistor}
-        >
-            <BrowserRouter>
-                <div className="flex flex-col justify-between h-screen">
-                    <div>
-                        <NavBar />
-                        <App />
+    <HelmetProvider>
+        <Provider store={store}>
+            <PersistGate
+                loading={<Loader2Icon className="animate-spin" />}
+                persistor={persistor}
+            >
+                <BrowserRouter>
+                    <div className="flex flex-col justify-between h-screen">
+                        <div>
+                            <NavBar />
+                            <App />
+                        </div>
+                        <ToastContainer />
+                        <Footer />
                     </div>
-                    <ToastContainer />
-                    <Footer />
-                </div>
-            </BrowserRouter>
-        </PersistGate>
-    </Provider>
+                </BrowserRouter>
+            </PersistGate>
+        </Provider>
+    </HelmetProvider>
 );
