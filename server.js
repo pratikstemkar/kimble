@@ -10,7 +10,14 @@ const postRouter = require("./routes/post");
 
 const app = express();
 
-app.use(cors());
+app.use(
+    cors({
+        origin: "*",
+        methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+        preflightContinue: false,
+        optionsSuccessStatus: 204,
+    })
+);
 
 app.use(express.json());
 
@@ -41,6 +48,6 @@ app.get("/hello", (req, res) => {
     res.send("Hello World!");
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(process.env.PORT, "0.0.0.0", () => {
     console.log(`Server running on port ${process.env.PORT} ...`);
 });
