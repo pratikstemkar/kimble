@@ -94,13 +94,26 @@ const EditProfile = ({ user }) => {
                     )}
                     <div className="flex justify-between space-x-2 items-center">
                         <label htmlFor="pfp">Profile Picture</label>
-                        <input
-                            placeholder="Enter URL for Profile Picture"
-                            {...register("pfp", { required: true })}
-                            className=" border rounded-lg px-2 py-1"
-                            type="text"
-                            id="pfp"
-                        />
+                        <div className="flex flex-col">
+                            <input
+                                placeholder="Enter URL for Profile Picture"
+                                {...register("pfp", { required: true })}
+                                className=" border rounded-lg px-2 py-1"
+                                type="text"
+                                id="pfp"
+                            />
+                            <span className="text-xs text-gray-500 mt-1">
+                                Visit{" "}
+                                <a
+                                    href="https://pfps.gg/pfps/anime"
+                                    target="_blank"
+                                    className="underline underline-offset-4"
+                                >
+                                    pfps.gg
+                                </a>{" "}
+                                for Profile Picture
+                            </span>
+                        </div>
                     </div>
                     {errors.pfp && (
                         <span className="text-red-500 text-sm">

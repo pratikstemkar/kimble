@@ -1,5 +1,3 @@
--- CREATE DATABASE kimbledb;
-
 USE kimbledb;
 
 CREATE TABLE users (

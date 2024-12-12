@@ -1,18 +1,54 @@
 services:
-    mysql:
+    db:
         image: mysql:8.4
-        container_name: kbdb_container
+        container_name: kb_db
         restart: always
         environment:
             MYSQL_ROOT_PASSWORD: ${DB_PASS}
             MYSQL_DATABASE: kimbledb
-            # MYSQL_USER: ${DB_USER}
-            # MYSQL_PASSWORD: ${DB_PASS}
+            MYSQL_USER: ${DB_USER}
+            MYSQL_PASSWORD: ${DB_PASS}
         ports:
             - "3306:3306"
         volumes:
-            - mysql_data:/var/lib/mysql
+            - db_data:/var/lib/mysql
             - ./mysql-init:/docker-entrypoint-initdb.d
+        networks:
+            - kimble_network
+
+    backend:
+        build: .
+        container_name: kb_backend
+        environment:
+            - PORT=${PORT}
+            - JWT_SECRET=${JWT_SECRET}
+            - GMAIL_USER=${GMAIL_USER}
+            - GMAIL_APP_PASS=${GMAIL_APP_PASS}
+            - HOSTNAME=${HOSTNAME}
+        ports:
+            - "4000:4000"
+        volumes:
+            - .:/usr/src/app
+        depends_on:
+            - db
+        networks:
+            - kimble_network
+
+    frontend:
+        build: ./web
+        container_name: kb_frontend
+        ports:
+            - "5173:5173"
+        stdin_open: true
+        tty: true
+        depends_on:
+            - backend
+        networks:
+            - kimble_network
 
 volumes:
-    mysql_data:
+    db_data:
+
+networks:
+    kimble_network:
+        driver: bridge

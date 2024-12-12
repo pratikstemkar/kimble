@@ -71,11 +71,7 @@ const StoryCard = ({ post, setNeedLoad }) => {
                     <div>
                         <img
                             src={userData.pfp}
-                            className={`rounded-full h-10 w-10 ${
-                                userData.role == "admin"
-                                    ? "ring-2 ring-red-500 shadow-xl"
-                                    : ""
-                            }`}
+                            className={`object-cover rounded-full h-10 w-10`}
                         />
                     </div>
                     <div className="flex flex-col gap-y-2">

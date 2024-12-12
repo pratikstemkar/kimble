@@ -21,7 +21,9 @@ const Stories = () => {
             .catch(err => console.log(err));
     };
 
-    useEffect(() => loadPosts(), [needLoad]);
+    useEffect(() => {
+        setInterval(() => loadPosts(), 5000);
+    }, [needLoad]);
 
     return (
         <div className="max-w-7xl m-auto mt-10">

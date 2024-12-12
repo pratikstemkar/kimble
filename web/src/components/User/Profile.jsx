@@ -90,7 +90,7 @@ const Profile = () => {
                     <div className="flex flex-col justify-center items-center space-y-5">
                         <img
                             src={data.pfp}
-                            className="rounded-full h-40 w-40"
+                            className="object-cover rounded-full h-40 w-40"
                         />
                         {/* <div>{JSON.stringify(data)}</div> */}
                         <div className="flex flex-col items-center space-y-2">
