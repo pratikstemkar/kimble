@@ -15,7 +15,11 @@ app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
-    if (req.url == "/auth/login" || req.url == "/auth/register") {
+    if (
+        req.url == "/api/auth/login" ||
+        req.url == "/api/auth/register" ||
+        req.url == "/api/hello"
+    ) {
         next();
     } else {
         const token = req.headers["token"];
@@ -33,11 +37,11 @@ app.use((req, res, next) => {
     }
 });
 
-app.use("/users", userRouter);
-app.use("/auth", authRouter);
-app.use("/posts", postRouter);
+app.use("/api/users", userRouter);
+app.use("/api/auth", authRouter);
+app.use("/api/posts", postRouter);
 
-app.get("/hello", (req, res) => {
+app.get("/api/hello", (req, res) => {
     res.send("Hello World!");
 });
 
